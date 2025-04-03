@@ -13,6 +13,7 @@ public class SellerController {
     @GetMapping
     public Seller getseller() {
 
+
         //Instanciar 5 sellers
         Location medellin = new Location("001", "Medellin");
         Location manizales = new Location("001","Manizales");
