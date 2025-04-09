@@ -16,7 +16,7 @@ public class SellerController {
 
         //Instanciar 5 sellers
         Location medellin = new Location("001", "Medellin");
-        Location manizales = new Location("001","Manizales");
+        Location manizales = new Location("1","Manizales");
         Location  tulua = new Location("834", "Tulua");
         Location buenaventura = new Location("109","Buenaventura");
         Location bogota= new Location("601", "Bogota");
