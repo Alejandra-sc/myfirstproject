@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class StoreController {
 @GetMapping
-    public String hello(){
-        return "hello beatiful";
+    public String getstore(){
+        return "store";
 
     }
 

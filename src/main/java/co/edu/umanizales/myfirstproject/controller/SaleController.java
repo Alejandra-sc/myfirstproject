@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class SaleController {
     @GetMapping
     public String getsale(){
-        return "Welcome to MyFirst Project";
+        return "sale";
     }
 }
