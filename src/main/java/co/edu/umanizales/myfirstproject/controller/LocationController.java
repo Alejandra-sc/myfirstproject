@@ -8,24 +8,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 
-
+/*
 @RestController
 @RequestMapping(path = "/location")
 public class LocationController {
-    /*
+
     @GetMapping
     public Location getLocation() {
-        Location location = new Location("001", "Manizales");
+        Location location = new Location("17001", "Manizales");
 
 
         return location;
 
     }
+}
 
-@GetMapping
+/*@GetMapping
     public List<Location> getlocation() {
         return Arrays.asList(
                 new Location("001", "Location 1"),
@@ -36,19 +38,37 @@ public class LocationController {
 
     }
     */
+
+  /* @Autowired
+    private locationService locationService;
+
+    @GetMapping
+    public List<Location> getLocations() {
+        try {
+//Especifica la ruta del archivo CSV
+            String csvFilePath = "C:/Users/USUARIO/IdeaProjects/myfirstproject/locations.csv";
+            return locationService.readLocationsFromCSV(csvFilePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;//Manejo simple de la excepcion
+        }
+    }
+*/
+
 @Autowired
 private locationService locationService;
 
 @GetMapping
-public List<Location> getLocations(){
-try{
-//Especifica la ruta del archivo CSV
-String csvFilePath = "C:/Users/USUARIO/IdeaProjects/myfirstproject/locations.csv";
-return locationService.readLocationsFromCSV(csvFilePath);
-}catch (IOException e){
-e.printStackTrace();
-return null;//Manejo simple de la excepcion
+public List<Location> getLocations() {
+    try {
+        return locationService.readLocationsFromCSV();
+    } catch (IOException | URISyntaxException e) {
+        e.printStackTrace();
+        return null;//Manejo simple de la excepción
+    }
 }
-}
-}
+
+
+
+
 

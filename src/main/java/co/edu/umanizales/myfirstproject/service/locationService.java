@@ -3,13 +3,17 @@ package co.edu.umanizales.myfirstproject.service;
 import co.edu.umanizales.myfirstproject.model.Location;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
+import lombok.Value;
 import org.springframework.stereotype.Service;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+/*@Service
 public class locationService {
 
     public List<Location> readLocationsFromCSV(String csvFilePath) throws IOException {
@@ -36,4 +40,22 @@ public class locationService {
     }
 }
 
+*/
+@Service
+public class LocationService {
 
+    @Value( "${location_filename}" )
+    private String locationsFilename;
+
+    public List<Location> readLocationsFromCsv() throws IOException, URISyntaxException {
+        List<Location> locations = new ArrayList<>();
+
+        Location[] locationArray = new Location[10];
+
+        Path pathFile = Paths.get(ClassLoader.getSystemResource(locationsFilename).toURI());
+
+        try (CSVReader csvreader = new CSVReader(new FileReader(pathFile.toFile()))) {
+            String[] line;
+        }
+    }
+    }
