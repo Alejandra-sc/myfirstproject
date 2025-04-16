@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/seller")
 
 public class SellerController {
+
     @GetMapping
     public Seller getseller() {
 

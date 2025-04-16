@@ -13,7 +13,7 @@ public class Seller {
     private String identification;
     private String name;
     private String lastName;
-    private Location location;
+    private Location city;
     private byte age;
     private char gender;
 

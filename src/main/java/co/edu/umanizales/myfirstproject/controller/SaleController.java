@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/sale")
 
 public class SaleController {
+
     @GetMapping
     public String getsale(){
         return "sale";

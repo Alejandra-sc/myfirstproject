@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/store")
 
 public class StoreController {
+
 @GetMapping
     public String getstore(){
         return "store";
