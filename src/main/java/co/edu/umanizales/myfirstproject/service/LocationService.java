@@ -48,4 +48,71 @@ public class LocationService {
             throw new RuntimeException(e);
         }
     }
+//Ciclo para retornar una localidad
+    public Location getLocationByCode(String code) {
+        for (Location location : locations) {
+            if (location.getCode().equals(code)) {
+                return location;
+            }
+        }
+        return null;
+    }
+//ciclo para retornar estados
+    public List<Location> getStates() {
+        List<Location> states = new ArrayList<>();
+        for (Location location : locations) {
+            if (location.getCode().length() == 2) {
+                states.add(location);
+            }
+        }
+        return states;
+    }
+
+    public Location getLocationByName(String name) {
+        for (Location location : locations) {
+            if (location.getCode().equals(name)) {
+                return location;
+            }
+        }
+        return null;
+    }
+//Ciclo para retornar las iniciales de las letras solicitadas
+    public List<Location> getLocationByLetters(String letters) {
+        List<Location> result = new ArrayList<>();
+        for (Location location : locations) {
+            if (location.getCode().startsWith(letters)) {
+                result.add(location);
+            }
+        }
+        return result;
+    }
+//Ciclo para retornar Codigos de los estados
+    public List<Location> getLocationByStateCode(String stateCode) {
+        List<Location> StatesCode = new ArrayList<>();
+        for (Location location : locations) {
+            if (location.getCode().equals(stateCode)) {
+                StatesCode.add(location);
+            }
+            return StatesCode;
+        }
+        return null;
+    }
+//Ciclo para retornar capitales
+public List<Location> getLocationByCapitals(String capitals) {
+        List<Location> result = new ArrayList<>();
+        for (Location location : locations) {
+            if (location.getCode().equals(capitals)) {
+                result.add(location);
+            }
+        }
+        return result;
+
+        }
+
+
 }
+
+
+
+
+
