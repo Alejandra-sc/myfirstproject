@@ -28,6 +28,9 @@ public class LocationService {
     @PostConstruct
     public void readLocationsFromCSV() throws IOException, URISyntaxException {
         locations = new ArrayList<>();
+        locations.add(new Location("05","ANTIOQUIA"));
+        locations.add(new Location("17","CALDAS"));
+        locations.add(new Location("66","RISARALDA"));
 
 
         Path pathFile = Paths.get(ClassLoader.getSystemResource(locationsFilename).toURI());
@@ -48,7 +51,7 @@ public class LocationService {
             throw new RuntimeException(e);
         }
     }
-//Ciclo para retornar una localidad
+//Ciclo para retornar un codigo
     public Location getLocationByCode(String code) {
         for (Location location : locations) {
             if (location.getCode().equals(code)) {
@@ -68,46 +71,57 @@ public class LocationService {
         return states;
     }
 
-    public Location getLocationByName(String name) {
-        for (Location location : locations) {
-            if (location.getCode().equals(name)) {
-                return location;
-            }
-        }
-        return null;
-    }
-//Ciclo para retornar las iniciales de las letras solicitadas
-    public List<Location> getLocationByLetters(String letters) {
+    public List<Location> getLocationsByName(String name) {
         List<Location> result = new ArrayList<>();
         for (Location location : locations) {
-            if (location.getCode().startsWith(letters)) {
+            if (location.getCode().equals(name)) {
                 result.add(location);
             }
         }
         return result;
     }
-//Ciclo para retornar Codigos de los estados
-    public List<Location> getLocationByStateCode(String stateCode) {
-        List<Location> StatesCode = new ArrayList<>();
-        for (Location location : locations) {
-            if (location.getCode().equals(stateCode)) {
-                StatesCode.add(location);
-            }
-            return StatesCode;
-        }
-        return null;
-    }
-//Ciclo para retornar capitales
-public List<Location> getLocationByCapitals(String capitals) {
+//Ciclo para retornar las iniciales de las letras de ciertos codigos
+    public List<Location> getLocationsByInitialLetters(String letters) {
         List<Location> result = new ArrayList<>();
         for (Location location : locations) {
-            if (location.getCode().equals(capitals)) {
+            if (location.getDescription().startsWith(letters)) {
+                result.add(location);
+            }
+        }
+        return result;
+    }
+//Ciclo para retornar las ubicaciones por codigo del departamento
+    public List<Location> getLocationsByStateCode(String stateCode) {
+        List<Location> statesCode = new ArrayList<>();
+        for (Location location : locations) {
+            if (location.getCode().startsWith(stateCode)) {
+                statesCode.add(location);
+            }
+
+        }
+        return statesCode;
+    }
+//Ciclo para retornar capitales
+public List<Location> getCapitals() {
+        List<Location> result = new ArrayList<>();
+        for (Location location : locations) {
+            if (location.getCode().endsWith("01") && location.getCode().length() == 5) {
                 result.add(location);
             }
         }
         return result;
 
         }
+
+    //Ciclo para retornar el departamento del codigo dado que tenga solo dos caracteres
+    public Location getStateByCode(String code) {
+        for (Location location : locations) {
+            if (location.getCode().equals(code) && location.getCode().length() == 2) {
+                return location;
+            }
+        }
+        return null;
+    }
 
 
 }

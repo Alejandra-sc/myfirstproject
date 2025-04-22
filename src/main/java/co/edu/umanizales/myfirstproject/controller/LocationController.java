@@ -31,31 +31,37 @@ public class LocationController {
 
     }
 
-    @GetMapping(path = "/{states}")
-    public List<Location> getLocationByStates(@PathVariable String states) {
+    @GetMapping(path = "/states")
+    public List<Location> getStates() {
         return locationService.getStates();
     }
 
     @GetMapping(path = "/{name}")
-    public Location getLocationByName(@PathVariable String name) {
-        return locationService.getLocationByName(name);
+    public List<Location> getLocationByName(@PathVariable String name) {
+        return locationService.getLocationsByName(name);
 
     }
 
-    @GetMapping(path = "/{InitialLetters}")
-    public List<Location> getLocationByLetters(@PathVariable String InitialLetters) {
-        return locationService.getLocationByLetters(InitialLetters);
+    @GetMapping(path = "/byinitials/{initialLetters}")
+    public List<Location> getLocationsByInitialLetters(@PathVariable String initialLetters) {
+        return locationService.getLocationsByInitialLetters(initialLetters);
     }
 
 
-    @GetMapping("/StateCode/{stateCode}")
-    public List<Location> getLocationByStateCode(@PathVariable String stateCode) {
-        return locationService.getLocationByStateCode(stateCode);
+    @GetMapping("/statecode/{stateCode}")
+    public List<Location> getLocationsByStateCode(@PathVariable String stateCode) {
+        return locationService.getLocationsByStateCode(stateCode);
     }
 
-    @GetMapping("/{capitals}")
-    public List<Location> getLocationByCapitals(@PathVariable String capitals) {
-        return locationService.getLocationByCapitals(capitals);
+    @GetMapping("/capitals")
+    public List<Location> getCapitals() {
+        return locationService.getCapitals();
+    }
+
+    @GetMapping(path = "/state/{code}")
+    public Location getStateByCode(@PathVariable String code) {
+        return locationService.getStateByCode(code);
+
     }
 
 }
