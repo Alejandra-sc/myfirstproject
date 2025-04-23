@@ -28,10 +28,6 @@ public class LocationService {
     @PostConstruct
     public void readLocationsFromCSV() throws IOException, URISyntaxException {
         locations = new ArrayList<>();
-        locations.add(new Location("05","ANTIOQUIA"));
-        locations.add(new Location("17","CALDAS"));
-        locations.add(new Location("66","RISARALDA"));
-
 
         Path pathFile = Paths.get(ClassLoader.getSystemResource(locationsFilename).toURI());
 
@@ -42,7 +38,8 @@ public class LocationService {
             while ((line = csvReader.readNext()) != null) {
 
                 // Crear un nuevo objeto Location y agregarlo a la lista
-                locations.add(new Location(line[2], line[3]));
+                locations.add(new Location(line[0].trim(), line[1].trim()));
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -74,7 +71,7 @@ public class LocationService {
     public List<Location> getLocationsByName(String name) {
         List<Location> result = new ArrayList<>();
         for (Location location : locations) {
-            if (location.getCode().equals(name)) {
+            if (location.getDescription().startsWith(name)) {
                 result.add(location);
             }
         }

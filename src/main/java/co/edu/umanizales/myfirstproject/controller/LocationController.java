@@ -36,8 +36,8 @@ public class LocationController {
         return locationService.getStates();
     }
 
-    @GetMapping(path = "/{name}")
-    public List<Location> getLocationByName(@PathVariable String name) {
+    @GetMapping(path = "/name/{name}")
+    public List<Location> getLocationsByName(@PathVariable String name) {
         return locationService.getLocationsByName(name);
 
     }
