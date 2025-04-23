@@ -25,7 +25,7 @@ public class LocationController {
 
     }
 
-    @GetMapping(path = "/{code}")
+    @GetMapping(path = "/byCode/{code}")
     public Location getLocationByCode(@PathVariable String code) {
         return locationService.getLocationByCode(code);
 
