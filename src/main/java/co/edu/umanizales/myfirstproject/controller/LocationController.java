@@ -64,5 +64,10 @@ public class LocationController {
 
     }
 
+    @GetMapping(path = "/size/{size}")
+    public List<Location>getLocationsBySizeName(@PathVariable int size) {
+        return locationService.getLocationsBySizeName(size);
+    }
+
 }
 
