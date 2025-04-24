@@ -167,7 +167,7 @@ public class LocationService {
                 result.add(location);
             }
         }
-return result;
+         return result;
     }
 }
 
