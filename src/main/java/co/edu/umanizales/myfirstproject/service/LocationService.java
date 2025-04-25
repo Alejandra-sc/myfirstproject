@@ -162,7 +162,7 @@ public class LocationService {
     public List<Location> getLocationBySizeName(int size) {
         List<Location> result = new ArrayList<>();
         for (Location location : locations) {
-            if (location.getDescription().length() >= size) {
+            if (location.getDescription().length() > size) {
                 result.add(location);
             }
         }

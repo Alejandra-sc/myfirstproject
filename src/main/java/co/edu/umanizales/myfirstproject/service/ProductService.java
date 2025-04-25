@@ -1,14 +1,13 @@
 package co.edu.umanizales.myfirstproject.service;
 
-import co.edu.umanizales.myfirstproject.model.Seller;
-import co.edu.umanizales.myfirstproject.model.TypeDocument;
+import co.edu.umanizales.myfirstproject.model.Product;
+import co.edu.umanizales.myfirstproject.model.TypeProduct;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -19,31 +18,31 @@ import java.util.List;
 
 @Service
 @Getter
-public class SellerService {
+
+public class ProductService {
     private final LocationService locationService;
-    private List<Seller> seller = new ArrayList<>();
+    private List<Product> product = new ArrayList<>();
 
-    @Value("${sellers_filename}")
-    private String sellersfilename;
+    @Value("${ListadoComputerProducts.csv}")
+    private String computerproductsfilename;
 
-    public SellerService(LocationService locationService) {
+    public ProductService(LocationService locationService) {
         this.locationService = locationService;
     }
 
-
     @PostConstruct
-    public void readSellersFromCSV() throws IOException, URISyntaxException {
-        seller = new ArrayList<>();
-        Path pathFile = Paths.get(getClass().getClassLoader().getResource(sellersfilename).toURI());
+    public void readProductFromCSV() throws IOException, URISyntaxException {
+        product = new ArrayList<>();
+        Path pathFile = Paths.get(getClass().getClassLoader().getResource(computerproductsfilename).toURI());
 
         try (CSVReader csvReader = new CSVReader(new FileReader(pathFile.toString()))) {
             String[] line;
             csvReader.skip(1);
-            // Ciclo para Leer linea por linea y agrega vendedores
+            // Ciclo para Leer linea por linea y agrega tienda
             while ((line = csvReader.readNext()) != null) {
 
                 // Crear un nuevo objeto Location y agregarlo a la lista
-                seller.add(new Seller(line[2], line[0], line[1], locationService.getLocationByCode(line[3]), Byte.parseByte(line[4]), line[5].charAt(0), new TypeDocument(line[6],line[7])));
+                product.add(new Product(line[0], line[1],Double.parseDouble(line[2]),Integer.parseInt(line[3]), new TypeProduct(line[4],line[5])));
 
             }
         } catch (CsvValidationException e) {
@@ -52,10 +51,15 @@ public class SellerService {
         }
     }
 
-    public List<Seller> getAllSellers() {
-        return seller;
+    public List<Product> getAllProducts() {
+        return product;
     }
 
 
 }
+
+
+
+
+
 

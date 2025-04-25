@@ -16,6 +16,7 @@ public class Seller {
     private Location city;
     private byte age;
     private char gender;
+    private TypeDocument typedoc;
 
 
 

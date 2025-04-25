@@ -3,22 +3,18 @@ package co.edu.umanizales.myfirstproject.model;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.Date;
+import java.util.List;
 
 @Setter
 @Getter
 @AllArgsConstructor
 
 public class Sale {
-    private String product;
-    private int input;
-    private int output;
+    private Store store;
+    private Seller seller;
     private Date dateSale;
-    private Date returnDate;
-    private String customer;
-    private String formPayment;
-    private String state;
-    private int salesId;
+    private int gsantity;
+    private List products;
 
 }
