@@ -1,6 +1,5 @@
 package co.edu.umanizales.myfirstproject.service;
 
-
 import co.edu.umanizales.myfirstproject.model.Store;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
@@ -24,7 +23,7 @@ public class StoreService {
     private final LocationService locationService;
     private List<Store> store = new ArrayList<>();
 
-    @Value("${ListadoStores.csv}")
+    @Value("${stores_filename}")
     private String storesfilename;
 
     public StoreService(LocationService locationService) {
@@ -43,7 +42,8 @@ public class StoreService {
             while ((line = csvReader.readNext()) != null) {
 
                 // Crear un nuevo objeto Location y agregarlo a la lista
-                store.add(new Store(line[0], line[1], line[2], locationService.getLocationByCode(line[3])));
+                store.add(new Store(line[1], line[0], line[2], locationService.getLocationByCode(line[3])
+                        ,null));
 
             }
         } catch (CsvValidationException e) {
@@ -51,10 +51,8 @@ public class StoreService {
 
         }
     }
-
     public List<Store> getAllStores() {
         return store;
     }
-
 
 }

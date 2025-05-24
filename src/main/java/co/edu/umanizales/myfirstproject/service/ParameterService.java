@@ -14,9 +14,9 @@ import java.util.List;
 
 @Service
 @Getter
-
 public class ParameterService {
     private List<Parameter> parameters;
+
 
     @PostConstruct
     public void loadParameters() {
@@ -67,8 +67,50 @@ public class ParameterService {
         return result;
         }
 
+        public Product getProductByCode(String code) {
+            for (Parameter p : parameters) {
+                if (p.getCode().equals(code)) {
+                    return (Product) p;
+                }
+            }
 
-    }
+            return null;
+        }
+
+        public String addProduct(Product product) {
+        //Este valida que ya no exixta
+            if(getProductByCode(product.getCode()) == null) {
+                parameters.add(product);
+                return "Product added";
+            }
+            else {
+                return "Product already exists";
+            }
+        }
+
+        public String addProducts(List<Product> products) {
+        for (Product p : products) {
+            String result = addProduct(p);
+            if (result.equals("Product already exists")) {
+                return "Product already exists"+p.getCode();
+            }
+        }
+        return "Products addeds";
+        }
+
+        public TypeProduct getTypeProductByCode(String code) {
+        for (Parameter p : parameters) {
+            if (p instanceof TypeProduct && p.getCode().equalsIgnoreCase(code)) {
+                return (TypeProduct) p;
+            }
+        }
+        return null;
+        }
+}
+
+
+
+
 
 
 

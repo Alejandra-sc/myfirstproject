@@ -3,13 +3,13 @@ package co.edu.umanizales.myfirstproject.model;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-@Setter
+
 @Getter
+@Setter
 @AllArgsConstructor
-public class Store {
+public class ProductSale {
     private String code;
-    private String name;
-    private String address;
-    private Location city;
-    public Store getStore;
+    private int quantity;
+    private double subtotal;
+    public Seller getSeller;
 }
