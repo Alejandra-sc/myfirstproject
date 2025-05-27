@@ -64,7 +64,6 @@ public class LocationService {
 
 
         Path pathFile = Paths.get(ClassLoader.getSystemResource(locationsFilename).toURI());
-
         try (CSVReader csvReader = new CSVReader(new FileReader(pathFile.toString()))) {
             String[] line;
             csvReader.skip(1);

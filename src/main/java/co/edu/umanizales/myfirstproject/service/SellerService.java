@@ -15,37 +15,40 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Getter
 public class SellerService {
+    private List<Seller> seller = new ArrayList<>();
+
+    @Value("${sellers_filename}")
+    private String sellersFilename;
 
     @Autowired
     private LocationService locationService;
 
-    private List<Seller> seller = new ArrayList<>();
-
-    @Value("${sellers_filename}")
-    private String sellersfilename;
+    @Autowired
+    private ParameterService parameterService;
 
     public SellerService(LocationService locationService) {
         this.locationService = locationService;
     }
 
     @PostConstruct
-    public void readSellersFromCSV() throws IOException, URISyntaxException {
+    public void readStoreFromCSV() throws IOException, URISyntaxException {
         seller = new ArrayList<>();
-        Path pathFile = Paths.get(getClass().getClassLoader().getResource(sellersfilename).toURI());
+        Path pathFile = Paths.get(getClass().getClassLoader().getResource(sellersFilename).toURI());
 
         try (CSVReader csvReader = new CSVReader(new FileReader(pathFile.toString()))) {
             String[] line;
             csvReader.skip(1);
-            // Ciclo para Leer linea por linea y agrega vendedores
+            // Ciclo para Leer linea por linea y agrega vendedor
             while ((line = csvReader.readNext()) != null) {
 
-                // Crear un nuevo objeto Location y agregarlo a la lista
-                seller.add(new Seller(line[2], line[0], line[1], locationService.getLocationByCode(line[3]), Byte.parseByte(line[4]), line[5].charAt(0), line[6], null));
+                // Crear un nuevo objeto vendedor y agregarlo a la lista
+                seller.add(new Seller(parameterService.getTypeDocumentByCode(line[0]), line[1], line[2], line[3],
+                        Byte.parseByte(line[4]), locationService.getLocationByCode(line[5])));
+
             }
         } catch (CsvValidationException e) {
             throw new RuntimeException(e);  // Lanza la excepción para que pueda manejarse en la capa superior si es necesario
@@ -57,16 +60,15 @@ public class SellerService {
         return seller;
     }
 
-    private List<Seller> sellers;  // Asumo que esta lista está inicializada en otro lado
-
-    public List<Seller> getSellerByName(String name) {
-        return sellers.stream()
-                .filter(seller -> seller.getName() != null && seller.getName().equalsIgnoreCase(name))
-                .collect(Collectors.toList());
-    }
-
-
+    public Seller getSellerByIdentification(String identification) {
+        for (Seller seller : seller) {
+            if (seller.getIdentification().equals(identification))
+                return seller;
         }
+        return null;
+    }
+}
+
 
 
 

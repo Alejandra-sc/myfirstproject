@@ -9,7 +9,6 @@ public class Product extends Parameter{
     private double price;
     private int stock;
     private TypeProduct type;
-    public Product getProduct;
 
     public Product(String code, String description, double price, int stock, TypeProduct type) {
         super (code,description);

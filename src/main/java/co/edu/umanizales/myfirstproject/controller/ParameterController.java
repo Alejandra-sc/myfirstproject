@@ -32,13 +32,6 @@ public class ParameterController {
         return parameterService.getParametersByType(3);
     }
 
-
-    @GetMapping(path = "bycode")
-    public List<Parameter> getTypeByDocumentCode() {
-        return parameterService.getParametersByType(4);
-
-    }
-
     @PostMapping(path = "/product")
     public String addProduct(@RequestBody ProductDTO product) {
         TypeProduct type = parameterService.getTypeProductByCode(product.getCodeTypeProduct());
@@ -46,17 +39,18 @@ public class ParameterController {
             return "Type Product with code" + product.getCode() + "does not exist";
         } else {
             return parameterService.addProduct(
-                    new Product(product.getCode(), product.getDescription(), product.getPrice(), product.getStock(), type)
-            );
+                    new Product(product.getCode(), product.getDescription(),
+                            product.getPrice(), product.getStock(), type));
         }
     }
-    @PostMapping("/listcomputerproducts")
+
+    @PostMapping("/listproducts")
     public String saveProducts(@RequestBody List<ProductDTO> productsDTO) {
         List<Product> products = new ArrayList<>();
         for (ProductDTO productDTO : productsDTO) {
             TypeProduct type = parameterService.getTypeProductByCode(productDTO.getCodeTypeProduct());
             if (type == null) {
-                return "Type Product with code " + productDTO.getCodeTypeProduct() + " does not exist";
+                return "Type Product with code " + productDTO.getCode() + " does not exist";
             } else {
                 products.add(
                         new Product(
@@ -64,14 +58,23 @@ public class ParameterController {
                                 productDTO.getDescription(),
                                 productDTO.getPrice(),
                                 productDTO.getStock(),
-                                type
-                        )
-                );
+                                type));
             }
         }
         return parameterService.addProducts(products);
     }
 
-}
 
+    @GetMapping(path = "product/{code}")
+    public Parameter getProductBycode(@PathVariable String code) {
+        return parameterService.getProductByCode(code);
+    }
+
+    @GetMapping(path = "typedocument/{code}")
+    public Parameter getTyDocumentBycode(@PathVariable String code) {
+        return parameterService.getTypeDocumentByCode(code);
+
+    }
+
+}
 

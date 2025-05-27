@@ -10,10 +10,10 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class Sale {
-    private Store store;
     private Seller seller;
-    private LocalDate dateSale;
+    private Store store;
     private int quantity;
     private List <ProductSale> products;
-    private double totalsale;
+    private LocalDate dateSale;
+    private double totalSale;
 }

@@ -1,15 +1,19 @@
 package co.edu.umanizales.myfirstproject.model;
 
-import lombok.AllArgsConstructor;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class ProductSale {
-    private String code;
+    private Product product;
     private int quantity;
     private double subtotal;
-    public Seller getSeller;
+
+    public ProductSale(Product product, int quantity, double subtotal) {
+        this.product = product;
+        this.quantity = quantity;
+        this.subtotal = subtotal;
+    }
 }
