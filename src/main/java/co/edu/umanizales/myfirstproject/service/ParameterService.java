@@ -6,6 +6,7 @@ import co.edu.umanizales.myfirstproject.model.TypeDocument;
 import co.edu.umanizales.myfirstproject.model.TypeProduct;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
+import lombok.Value;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,10 @@ import java.util.List;
 @Getter
 public class ParameterService {
     private List<Parameter> parameters;
+
+
+
+
 
     @PostConstruct
     public void loadParameters() {
